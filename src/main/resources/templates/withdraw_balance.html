@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Deposit Confirmation</title>
+    <link rel="stylesheet" th:href="@{/css/register.css}"/>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css" rel="stylesheet"/>
+</head>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<br>
+
+<div class="container">
+    <div class="title">Withdraw Form</div>
+    <br th:if="${successfully}">
+    <h2 class="content" style="text-align: center; color: darkgreen" th:if="${successfully}">Amount has been
+        successfully withdrawn.</h2>
+    <hr th:if="${successfully}">
+
+    <br th:if="${failure}">
+    <h2 class="content" style="text-align: center; color: red" th:if="${failure}">You don't have enough funds
+        in your account</h2>
+    <hr th:if="${failure}">
+
+    <div class="content">
+        <form method="POST" th:action="@{/account/withdraw/{id}(id=${accountId})}" th:object="${balanceDTO}">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Enter the withdraw amount</span>
+                    <input placeholder="Enter your withdraw amount" required th:field="*{balance}" type="number">
+                    <span class="text-danger" th:errors="*{balance}"
+                          th:if="${#fields.hasErrors('balance')}"></span>
+                </div>
+
+            </div>
+            <div class="button">
+                <input type="submit" value="Withdraw Amount">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>

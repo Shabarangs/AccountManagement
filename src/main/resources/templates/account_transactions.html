@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Transaction Dashboard</title>
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+</head>
+<style>
+
+    body {
+        font-family: math;
+    }
+
+
+    :root {
+        --default-font: "Roboto, sans-serif";
+    }
+
+    h1 {
+        text-align: center;
+        font-size: 50px;
+        font-family: 'Font Awesome 5 Free';
+    }
+
+    .jumbotron {
+        background-color: white !important;
+    }
+
+    .btn {
+        color: #fff;
+        background-color: black;
+        border-color: black;
+    }
+</style>
+<body>
+<div th:replace="fragments/header :: navbar"></div>
+<div class="jumbotron">
+    <hr>
+    <h1 class="mt-4">Specific Accounts Transactions List</h1>
+    <hr>
+    <table class="table table-bordered">
+        <thead class="thead-dark">
+        <tr>
+            <th>Transaction ID</th>
+            <th>Transaction Amount</th>
+            <th>Transaction Status</th>
+            <th>Transaction Time</th>
+            <th>Account Number</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${specificAccountTransactions}">
+            <td th:text="${transaction.id}"></td>
+            <td th:text="${transaction.amount}"></td>
+            <td th:text="${transaction.status}"></td>
+            <td th:text="${#dates.format(transaction.transactionTime, 'yyyy-MM-dd hh:mm a')}"></td>
+            <td th:text="${transaction.account.getAccountNumber()}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-success" th:href="@{/}">Back to Accounts</a>
+</div>
+<!-- Place these script imports before your custom script -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

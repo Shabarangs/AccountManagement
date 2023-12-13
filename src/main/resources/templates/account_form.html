@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form </title>
+    <link rel="stylesheet" th:href="@{/css/register.css}"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <link rel="stylesheet" th:href="@{/css/header.css}">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+</head>
+<style>
+    .button {
+        color: #fff;
+        background-color: black;
+        border-color: black;
+    }
+</style>
+<body style="background: white">
+<div th:replace="fragments/header :: navbar"></div>
+
+<div class="container">
+    <div class="title">Account Creation</div>
+    <br th:if="${successfully}">
+    <h2 class="content" style="text-align: center; color: darkgreen" th:if="${successfully}">You have successfully
+        created the account.</h2>
+    <hr th:if="${successfully}">
+
+    <div class="content">
+        <form method="post" th:action="@{/account/create}" th:object="${account}">
+            <div class="user-details">
+                <div class="input-box">
+                    <span class="details">Account Holder Name</span>
+                    <input placeholder="Enter your Name" required th:field="*{accountHolderName}" type="text">
+                    <span class="text-danger" th:errors="*{accountHolderName}"
+                          th:if="${#fields.hasErrors('accountHolderName')}"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Initial Deposit</span>
+                    <input placeholder="Enter your initial balance" required th:field="*{balance}" type="number">
+                    <span class="text-danger" th:errors="*{balance}"
+                          th:if="${#fields.hasErrors('balance')}"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Email</span>
+                    <input placeholder="Enter your email" required th:field="*{email}" type="email">
+                    <span class="text-danger" th:errors="*{email}"
+                          th:if="${#fields.hasErrors('email')}"></span>
+                </div>
+                <div class="input-box">
+                    <span class="details">Phone Number</span>
+                    <input placeholder="Enter your phone number" required th:field="*{phoneNumber}" type="text">
+                    <span class="text-danger" th:errors="*{phoneNumber}"
+                          th:if="${#fields.hasErrors('phoneNumber')}"></span>
+                </div>
+
+            </div>
+            <div class="button">
+                <input type="submit" value="Create Account">
+            </div>
+        </form>
+    </div>
+</div>
+</body>
+</html>
